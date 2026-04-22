@@ -17,6 +17,8 @@
     {{-- <div class="pt-25 flex min-h-screen bg-[#F8F9FA]"> --}}
         {{-- @include('partials.sidebar') --}}
         @yield('content')
+
+        @yield('coin-card-content')
     {{-- </div> --}}
     
         @include('partials.footer')
