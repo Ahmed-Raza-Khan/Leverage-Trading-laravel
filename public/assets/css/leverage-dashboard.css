@@ -1,0 +1,56 @@
+/* imported fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/segoe-ui-4');
+@import url('https://fonts.cdnfonts.com/css/arial-2');
+
+
+/* root models */
+:root {
+    --font-segoe-ui: 'Segoe UI';
+    --font-arial: 'Arial';
+    --font-poppins: 'Poppins';
+    --font-regular: 'regular';
+    --font-bold: 'Bold';
+    --font-medium: 'Medium';
+    --font-light: 'Light';
+    --font-semibold: 'SemiBold';
+    --font-weight-300: 300;
+    --font-weight-400: 400;
+    --font-weight-500: 500;
+    --font-weight-600: 600;
+    --font-weight-700: 700;
+    --color-blue: #3B82F6;
+    --color-blue-0c5: #0C5FFD;
+    --color-blue-336: #3366CC;
+    --color-blue-3b8: #3B82F61F;
+    --color-blue-1e2: #1E293B;
+    --color-blue-293: #293C50;
+    --color-black-0: #000000;
+    --color-black-1: #111111;
+    --color-black-3: #333333;
+    --color-black-232: #232323;
+    --color-gray-purp: #5D6588;
+    --color-gray-939: #93989A;
+    --color-gray-94a: #94A3B8;
+    --color-gray-666: #666666;
+    --color-gray-e4e: #E4E9EC;
+    --color-gray-e2e: #E2E7EA;
+    --color-gray-5e6: #5E6990;
+    --color-gray-3e4: #3E4954;
+    --color-gray-475: #475569;
+    --color-gray-647: #64748B;
+    --color-teal-2a9: #2A9D90;
+    --color-green-1ba: #1BA27A;
+    --color-green-61c: #61C277;
+    --color-red-fa2: #FA2256;
+    --color-red-ff2: #FF2E2E;
+    --color-white-fff: #FFFFFF;
+    --color-white-fdf: #FDFEFE;
+    --color-white-d7d: #D7D7D7;
+    --color-white-eef: #EEF7F6;
+}
+
+.navbar-buttons {
+    font-family: var(--font-arial);
+    color: var(--color-black-0);
+}
