@@ -61,14 +61,13 @@
 //     chart.render();
 // });
 
-
 function setActive(btn) {
         document.querySelectorAll('.timeframe-btn').forEach(b => {
-            b.classList.remove('bg-blue-600', 'text-white');
-            b.classList.add('text-gray-500');
+            b.classList.remove('bg-[#E6EFFB]');
+            b.classList.add('text-[#3366CC]');
         });
-        btn.classList.add('bg-blue-600', 'text-white');
-        btn.classList.remove('text-gray-500');
+        btn.classList.add('bg-[#E6EFFB]', 'text-[#3366CC]');
+        btn.classList.remove('text-[#3366CC]');
     }
 
     function generateData(points, base, volatility) {
@@ -85,15 +84,15 @@ function setActive(btn) {
     const labels = [];
     const base = new Date('2025-09-19T12:00:00Z');
     for (let i = 0; i < 55; i++) {
-        const d = new Date(base.getTime() + i * 60000);
+        const d = new Date(base.getTime() + i * 9300);
         const hh = String(d.getUTCHours()).padStart(2, '0');
         const mm = String(d.getUTCMinutes()).padStart(2, '0');
         labels.push(`09-19 ${hh}:${mm}`);
     }
 
-    const vixData   = generateData(55, 300, 30).map((v, i) => v + i * 4);
-    const btcData   = generateData(55, 9200, 60);
-    const volData   = generateData(55, 50, 20).map(v => Math.abs(v));
+    const vixData   = generateData(55, 100, 40).map((v, i) => v + i * 4);
+    const btcData   = generateData(200, 9300, 100);
+    const volData   = generateData(400, 9300, 300).map(v => Math.abs(v));
 
     const ctx = document.getElementById('vixChart').getContext('2d');
 
@@ -231,33 +230,35 @@ function setActive(btn) {
     });
 
     const assets = [
-        { name: 'Bitcoin',      sym: 'BTC',  price: '$87,334.73', pct: '+271.26% views', color: '#f7931a', letter: 'B' },
-        { name: 'Ethereum',     sym: 'ETH',  price: '$3,036.96',  pct: '+456.93% views', color: '#627eea', letter: 'E' },
-        { name: 'Binance Coin', sym: 'BNB',  price: '$247.71',    pct: '+138.03% views', color: '#f3ba2f', letter: 'B' },
-        { name: 'USDT Coin',    sym: 'USDC', price: '$0.9998',    pct: '+136.03% views', color: '#2775ca', letter: 'U' },
-        { name: 'Ripple Coin',  sym: 'Rip',  price: '$0.9998',    pct: '+136.03% views', color: '#00aae4', letter: 'R' },
-        { name: 'Lite Coin',    sym: 'LTE',  price: '$0.9998',    pct: '+136.03% views', color: '#bebebe', letter: 'L' },
-        { name: 'USDT Coin',    sym: 'USDC', price: '$0.9998',    pct: '+136.03% views', color: '#2775ca', letter: 'U' },
-        { name: 'Tezos',        sym: 'Rip',  price: '$0.9998',    pct: '+136.03% views', color: '#2c7df7', letter: 'T' },
-        { name: 'USDT Coin',    sym: 'USDC', price: '$0.9998',    pct: '+136.03% views', color: '#2775ca', letter: 'U' },
-        { name: 'Tether',       sym: 'USDT', price: '$0.99',      pct: '+271.26% views', color: '#26a17b', letter: 'T' },
+        { name: 'Bitcoin',      sym: 'BTC',  price: '$87,334.73', pct: '+271.26% views', color: '#ffffff', letter: 'assets/images/Bitcoin-Coin.svg' },
+        { name: 'Ethereum',     sym: 'ETH',  price: '$3,036.96',  pct: '+456.93% views', color: '#ffffff', letter: 'assets/images/Etherum-Coin.svg' },
+        { name: 'Binance Coin', sym: 'BNB',  price: '$247.71',    pct: '+138.03% views', color: '#ffffff', letter: 'assets/images/Binance-Coin.svg' },
+        { name: 'USDT Coin',    sym: 'USDC', price: '$0.9998',    pct: '+136.03% views', color: '#ffffff', letter: 'assets/images/USDT-Coin.svg' },
+        { name: 'Ripple Coin',  sym: 'Rip',  price: '$0.9998',    pct: '+136.03% views', color: '#ffffff', letter: 'assets/images/Ripple-Coin.svg' },
+        { name: 'Lite Coin',    sym: 'LTE',  price: '$0.9998',    pct: '+136.03% views', color: '#ffffff', letter: 'assets/images/Litecoin.svg' },
+        { name: 'USDT Coin',    sym: 'USDC', price: '$0.9998',    pct: '+136.03% views', color: '#ffffff', letter: 'assets/images/USDT-Coin.svg' },
+        { name: 'Tezos',        sym: 'Rip',  price: '$0.9998',    pct: '+136.03% views', color: '#ffffff', letter: 'assets/images/Ripple-Coin.svg' },
+        { name: 'USDT Coin',    sym: 'USDC', price: '$0.9998',    pct: '+136.03% views', color: '#ffffff', letter: 'assets/images/USDT-Coin.svg' },
+        { name: 'Tether',       sym: 'USDT', price: '$0.99',      pct: '+271.26% views', color: '#ffffff', letter: 'assets/images/Tether-Coin.svg' },
     ];
 
     const container = document.getElementById('trendingAssets');
     assets.forEach(a => {
         container.innerHTML += `
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between pb-1 pt-1">
             <div class="flex items-center gap-2">
-                <div class="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
-                     style="background:${a.color}">${a.letter}</div>
+                <div class="w-10 h-10 rounded-full flex items-center justify-center"style="background:${a.color}">
+                     <img src="${a.letter}" alt="${name} icon" class="w-10 h-10 rounded-full shadow-sm">
+                </div>
                 <div class="leading-tight">
-                    <div class="text-xs font-semibold text-gray-800">${a.name}</div>
-                    <div class="text-[10px] text-gray-400">${a.sym}</div>
+                    <div class="text-[16px] font-semibold text-[#202226] mb-1">${a.name}</div>
+                    <div class="text-[12px] font-regular text-[#93989A]">${a.sym}</div>
                 </div>
             </div>
             <div class="text-right leading-tight">
-                <div class="text-xs font-semibold text-gray-800">${a.price}</div>
-                <div class="text-[10px] text-green-500 font-medium">${a.pct}</div>
+                <div class="text-[16px] font-semibold text-[#202226] mb-1">${a.price}</div>
+                <div class="text-[12px] text-[#2A9D90] font-regular">${a.pct}</div>
             </div>
-        </div>`;
+        </div>
+        <hr class="border-b border-[#EAEFF3] w-full">`;
     });

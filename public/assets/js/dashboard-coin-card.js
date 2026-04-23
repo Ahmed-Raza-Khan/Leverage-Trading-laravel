@@ -56,8 +56,8 @@ function renderCard(data) {
         <div class="flex items-center gap-2">
             <img src="${icon}" alt="${name} icon" class="w-10 h-10 rounded-full shadow-sm">
             <div class="flex flex-col">
-            <span class="text-[14px] text-[#111111] font-regular">${name}</span>
-            <span class="text-[22px] font-bold text-[#333333">${price}</span>
+                <span class="text-[14px] text-[#111111] font-regular">${name}</span>
+                <span class="text-[22px] font-bold text-[#333333">${price}</span>
             </div>
         </div>
         <div class="text-[14px] font-regular text-[#5D6588] self-start">${symbol}</div>

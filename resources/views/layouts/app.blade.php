@@ -20,6 +20,7 @@
         <div class="flex bg-[#FFFFFF] rounded-md m-4">
             @yield('content')
 
+            {{-- @yield('content-asset') --}}
             {{-- @yield('coin-card-content') --}}
         </div>
     </div>

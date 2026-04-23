@@ -68,22 +68,16 @@
     font-family: var(--font-poppins);
 }
 
-
-
-
-
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        * { font-family: 'Inter', sans-serif; }
-        .chart-wrapper { position: relative; }
-        .rotated-label {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            transform: rotate(180deg);
-        }
-        .legend-dashed {
-            width: 28px;
-            height: 2px;
-            background: repeating-linear-gradient(90deg, #ef4444 0, #ef4444 4px, transparent 4px, transparent 8px);
-            display: inline-block;
-            vertical-align: middle;
-        } */
+.chart-wrapper { position: relative; }
+.rotated-label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+.legend-dashed {
+    width: 28px;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, #ef4444 0, #ef4444 4px, transparent 4px, transparent 8px);
+    display: inline-block;
+    vertical-align: middle;
+}
