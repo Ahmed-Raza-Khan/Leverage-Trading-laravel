@@ -1,3 +1,3 @@
 {{-- card section --}}
-{{-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full" id="cards-container">
-</div> --}}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full" id="cards-container">
+</div>

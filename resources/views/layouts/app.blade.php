@@ -17,11 +17,10 @@
     </header>
 
     <div class="m-10 bg-[#FFFFFF] shadow-lg border rounded-xl min-h-screen p-3">
-        <div class="flex bg-[#FFFFFF] rounded-md m-4">
+        <div class="flex flex-col bg-[#FFFFFF] rounded-md m-4">
+
             @yield('content')
 
-            {{-- @yield('content-asset') --}}
-            {{-- @yield('coin-card-content') --}}
         </div>
     </div>
 
