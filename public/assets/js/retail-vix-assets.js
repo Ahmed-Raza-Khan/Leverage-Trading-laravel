@@ -1,0 +1,263 @@
+// document.addEventListener('DOMContentLoaded', function () {
+//     const options = {
+//         series: [{
+//             name: 'Retail VIX',
+//             type: 'area',
+//             data: [320, 380, 350, 410, 390, 450, 480, 420, 510, 580, 530, 490, 620, 590, 720, 780]
+//         }, {
+//             name: 'BTC Price',
+//             type: 'line',
+//             data: [9000, 9100, 9050, 9150, 9200, 9100, 9180, 9250, 9220, 9300, 9350, 9280, 9400, 9320, 9450, 9500]
+//         }, {
+//             name: 'Volume',
+//             type: 'column',
+//             data: [20, 40, 30, 50, 10, 15, 35, 45, 25, 60, 30, 40, 20, 30, 55, 40]
+//         }],
+//         chart: {
+//             height: 400,
+//             type: 'line',
+//             toolbar: { show: false },
+//             zoom: { enabled: false }
+//         },
+//         colors: ['#2563eb', '#e5e7eb', '#64748b'],
+//         stroke: { width: [3, 2, 0], curve: 'smooth' },
+//         fill: {
+//             type: ['gradient', 'solid', 'solid'],
+//             gradient: { shadeIntensity: 1, opacityFrom: 0.1, opacityTo: 0 }
+//         },
+//         grid: {
+//             borderColor: '#f1f1f1',
+//             strokeDashArray: 4,
+//         },
+//         xaxis: {
+//             categories: ['12:00', '12:01', '12:02', '12:03', '12:04', '12:05', '12:06', '12:07', '12:08'],
+//             labels: { style: { colors: '#9ca3af', fontWeight: 700, fontSize: '10px' } }
+//         },
+//         yaxis: [
+//             {
+//                 title: { text: '' },
+//                 labels: { style: { colors: '#9ca3af', fontWeight: 700 } },
+//                 min: 100, max: 1000
+//             },
+//             {
+//                 opposite: true,
+//                 title: { text: '' },
+//                 labels: { style: { colors: '#9ca3af', fontWeight: 700 } },
+//                 min: 8800, max: 9500
+//             }
+//         ],
+//         annotations: {
+//             yaxis: [{
+//                 y: 100,
+//                 borderColor: '#ef4444',
+//                 strokeDashArray: 4,
+//                 label: { style: { color: '#fff', background: '#ef4444' } }
+//             }]
+//         },
+//         legend: { show: false }
+//     };
+
+//     const chart = new ApexCharts(document.querySelector("#retailVixChart"), options);
+//     chart.render();
+// });
+
+
+function setActive(btn) {
+        document.querySelectorAll('.timeframe-btn').forEach(b => {
+            b.classList.remove('bg-blue-600', 'text-white');
+            b.classList.add('text-gray-500');
+        });
+        btn.classList.add('bg-blue-600', 'text-white');
+        btn.classList.remove('text-gray-500');
+    }
+
+    function generateData(points, base, volatility) {
+        const arr = [];
+        let v = base;
+        for (let i = 0; i < points; i++) {
+            v += (Math.random() - 0.46) * volatility;
+            v = Math.max(base * 0.7, Math.min(base * 1.3, v));
+            arr.push(parseFloat(v.toFixed(2)));
+        }
+        return arr;
+    }
+
+    const labels = [];
+    const base = new Date('2025-09-19T12:00:00Z');
+    for (let i = 0; i < 55; i++) {
+        const d = new Date(base.getTime() + i * 60000);
+        const hh = String(d.getUTCHours()).padStart(2, '0');
+        const mm = String(d.getUTCMinutes()).padStart(2, '0');
+        labels.push(`09-19 ${hh}:${mm}`);
+    }
+
+    const vixData   = generateData(55, 300, 30).map((v, i) => v + i * 4);
+    const btcData   = generateData(55, 9200, 60);
+    const volData   = generateData(55, 50, 20).map(v => Math.abs(v));
+
+    const ctx = document.getElementById('vixChart').getContext('2d');
+
+    const btcGradient = ctx.createLinearGradient(0, 0, 0, 300);
+    btcGradient.addColorStop(0, 'rgba(200,200,210,0.35)');
+    btcGradient.addColorStop(1, 'rgba(200,200,210,0.02)');
+
+    const vixGradient = ctx.createLinearGradient(0, 0, 0, 300);
+    vixGradient.addColorStop(0, 'rgba(59,130,246,0.25)');
+    vixGradient.addColorStop(1, 'rgba(59,130,246,0.02)');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [
+                {
+                    type: 'line',
+                    label: 'BTC Price',
+                    data: btcData,
+                    borderColor: 'rgba(180,180,195,0.9)',
+                    backgroundColor: btcGradient,
+                    borderWidth: 1.5,
+                    pointRadius: 0,
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'yRight',
+                    order: 3,
+                },
+                {
+                    type: 'line',
+                    label: 'Retail VIX',
+                    data: vixData,
+                    borderColor: '#2563eb',
+                    backgroundColor: vixGradient,
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'yLeft',
+                    order: 2,
+                },
+                {
+                    type: 'bar',
+                    label: 'Volume',
+                    data: volData,
+                    backgroundColor: 'rgba(100,116,139,0.45)',
+                    borderRadius: 1,
+                    yAxisID: 'yVol',
+                    order: 4,
+                    barPercentage: 0.7,
+                },
+            ]
+        },
+        options: {
+            responsive: true,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(255,255,255,0.97)',
+                    borderColor: '#e5e7eb',
+                    borderWidth: 1,
+                    titleColor: '#374151',
+                    bodyColor: '#6b7280',
+                    titleFont: { size: 11, weight: '600' },
+                    bodyFont: { size: 11 },
+                    padding: 10,
+                    callbacks: {
+                        title: (items) => `${items[0].label} UTC`,
+                        label: (item) => {
+                            if (item.dataset.label === 'Retail VIX') return ` Retail VIX: ${item.raw.toFixed(0)}`;
+                            if (item.dataset.label === 'BTC Price') return ` BTC: $${item.raw.toFixed(2)}`;
+                            return ` Volume: ${item.raw.toFixed(0)}`;
+                        }
+                    }
+                },
+                annotation: undefined,
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#9ca3af',
+                        font: { size: 9 },
+                        maxRotation: 0,
+                        maxTicksLimit: 9,
+                    },
+                    grid: { color: 'rgba(229,231,235,0.6)' },
+                    border: { display: false },
+                },
+                yLeft: {
+                    type: 'linear',
+                    position: 'left',
+                    ticks: { color: '#9ca3af', font: { size: 9 }, maxTicksLimit: 7 },
+                    grid: { color: 'rgba(229,231,235,0.6)' },
+                    border: { display: false },
+                },
+                yRight: {
+                    type: 'linear',
+                    position: 'right',
+                    ticks: {
+                        color: '#9ca3af',
+                        font: { size: 9 },
+                        maxTicksLimit: 7,
+                        callback: v => v.toLocaleString()
+                    },
+                    grid: { drawOnChartArea: false },
+                    border: { display: false },
+                },
+                yVol: {
+                    type: 'linear',
+                    position: 'left',
+                    display: false,
+                    max: Math.max(...volData) * 6,
+                },
+            }
+        },
+        plugins: [{
+            id: 'baseline',
+            afterDraw(chart) {
+                const { ctx, scales: { yLeft, x } } = chart;
+                if (!yLeft) return;
+                const y = yLeft.getPixelForValue(100);
+                ctx.save();
+                ctx.setLineDash([5, 5]);
+                ctx.strokeStyle = '#ef4444';
+                ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                ctx.moveTo(x.left, y);
+                ctx.lineTo(x.right, y);
+                ctx.stroke();
+                ctx.restore();
+            }
+        }]
+    });
+
+    const assets = [
+        { name: 'Bitcoin',      sym: 'BTC',  price: '$87,334.73', pct: '+271.26% views', color: '#f7931a', letter: 'B' },
+        { name: 'Ethereum',     sym: 'ETH',  price: '$3,036.96',  pct: '+456.93% views', color: '#627eea', letter: 'E' },
+        { name: 'Binance Coin', sym: 'BNB',  price: '$247.71',    pct: '+138.03% views', color: '#f3ba2f', letter: 'B' },
+        { name: 'USDT Coin',    sym: 'USDC', price: '$0.9998',    pct: '+136.03% views', color: '#2775ca', letter: 'U' },
+        { name: 'Ripple Coin',  sym: 'Rip',  price: '$0.9998',    pct: '+136.03% views', color: '#00aae4', letter: 'R' },
+        { name: 'Lite Coin',    sym: 'LTE',  price: '$0.9998',    pct: '+136.03% views', color: '#bebebe', letter: 'L' },
+        { name: 'USDT Coin',    sym: 'USDC', price: '$0.9998',    pct: '+136.03% views', color: '#2775ca', letter: 'U' },
+        { name: 'Tezos',        sym: 'Rip',  price: '$0.9998',    pct: '+136.03% views', color: '#2c7df7', letter: 'T' },
+        { name: 'USDT Coin',    sym: 'USDC', price: '$0.9998',    pct: '+136.03% views', color: '#2775ca', letter: 'U' },
+        { name: 'Tether',       sym: 'USDT', price: '$0.99',      pct: '+271.26% views', color: '#26a17b', letter: 'T' },
+    ];
+
+    const container = document.getElementById('trendingAssets');
+    assets.forEach(a => {
+        container.innerHTML += `
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
+                     style="background:${a.color}">${a.letter}</div>
+                <div class="leading-tight">
+                    <div class="text-xs font-semibold text-gray-800">${a.name}</div>
+                    <div class="text-[10px] text-gray-400">${a.sym}</div>
+                </div>
+            </div>
+            <div class="text-right leading-tight">
+                <div class="text-xs font-semibold text-gray-800">${a.price}</div>
+                <div class="text-[10px] text-green-500 font-medium">${a.pct}</div>
+            </div>
+        </div>`;
+    });
