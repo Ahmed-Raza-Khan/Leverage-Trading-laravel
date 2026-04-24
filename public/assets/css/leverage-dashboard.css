@@ -81,3 +81,13 @@
     display: inline-block;
     vertical-align: middle;
 }
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 1rem;
+    z-index: 50;
+}
+.dropdown-menu.show {
+    display: block;
+}

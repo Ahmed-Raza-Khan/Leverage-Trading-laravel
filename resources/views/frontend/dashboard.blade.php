@@ -9,5 +9,4 @@
 
     @include("frontend.market-values")
 
-    <script src="assets/js/dashboard-coin-card.js"></script>
 @endsection
