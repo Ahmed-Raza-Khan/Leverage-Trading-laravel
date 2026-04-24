@@ -10,7 +10,7 @@ class LeverageTradingController extends Controller
         return view('frontend.dashboard');
     }
 
-    public function retail() {
-        return view('frontend.retail-charts-asessts');
-    }
+    // public function retail() {
+    //     return view('frontend.retail-charts-asessts');
+    // }
 }

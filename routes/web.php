@@ -10,6 +10,6 @@ Route::get('/', function () {
 Route::controller(LeverageTradingController::class)->group(function () {
     Route::get('/dashboard', 'dashboard')->name('dashboard');
     // Route::get('/forgot-password', 'forgotPassword')->name('password.request');
-    Route::get('/retail', 'retail');
+    // Route::get('/retail', 'retail');
     // Route::get('/new-password', 'newPassword');
 });
